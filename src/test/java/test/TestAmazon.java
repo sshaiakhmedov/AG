@@ -57,7 +57,9 @@ class TestAmazon {
        WebElement priceHightToLow=driver.findElement(By.xpath("//a[contains(text(),'Price: High to Low')]"));
        priceHightToLow.click();
 
-        List<WebElement> pages=driver.findElements(By.xpath(""));
+        List<WebElement> s=driver.findElements(By.xpath("//ul[@class='a-pagination']//*//a"));
+        int pagesTotal=s.size();
+        System.out.println("Total Result Pages: "+pagesTotal);
         //DropDownList with Select class, #2
         //Select dropDownBox= new Select(driver.findElement(By.xpath("//i[@class='a-icon a-icon-dropdown']")));
 
