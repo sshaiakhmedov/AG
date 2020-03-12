@@ -1,5 +1,6 @@
 package test;
 
+import io.github.bonigarcia.wdm.*;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
@@ -14,8 +15,7 @@ class TestGoogle {
 
     @BeforeAll
     static void setupBeforeClass() throws Exception{
-        //WebDriverManager.chromedriver().setup();
-
+        WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
