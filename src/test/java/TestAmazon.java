@@ -16,8 +16,6 @@ class TestAmazon {
     static void setupBeforeClass() throws Exception{
         //WebDriverManager.chromedriver().setup();
         System.setProperty("webdriver.chrome.driver", "c:/drivers/chromedriver.exe");
-
-
     }
 
     @BeforeEach
@@ -54,6 +52,11 @@ class TestAmazon {
         //Thread.sleep(2000);
         //String searchWord=driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\" and @value='nutella']")).getAttribute("value");
         assertTrue(searchWord.getAttribute("value").contains("iphone"));
+       List<WebElement> links= driver.findElements(By.tagName("a"));
+       int linksCount=links.size();
+        System.out.println("Number of links: "+ linksCount);
+
+
 
 
         //DropDownList, #1
@@ -71,10 +74,26 @@ class TestAmazon {
         WebElement pageResultTotalCount=driver.findElement(By.xpath("//ul[@class='a-pagination']//li[last()-1]"));
         System.out.println("Total pages: "+pageResultTotalCount.getText());
 
+        //loop through all pages of searchResult
+        List<WebElement> pagesLine=driver.findElements(By.xpath("//ul[@class='a-pagination']//li"));
+
+        int i=2;
+        while (driver.findElement(By.xpath("//ul[@class='a-pagination']//li")).getText()!="Next"){
+            pagesLine.get(i).click();
+            Thread.sleep(2000);
+            i++;
+            Thread.sleep(2000);
+
+        }
+
+        //ul[@class='a-pagination']//li[2]"
+
 
 
         WebElement priceHightToLow=driver.findElement(By.xpath("//a[contains(text(),'Price: High to Low')]"));
         priceHightToLow.click();
+
+
 
         //dropDownList: array
 //        WebElement filterList=driver.findElement(By.xpath("//ul[@role='listbox']"));
@@ -106,6 +125,7 @@ class TestAmazon {
         WebElement addedToCart=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1")));
         String addedToCartText=driver.findElement(By.xpath("//h1")).getText();
         assertTrue(addedToCartText.contains("Added"));
+        driver.quit();
         driver.close();
     }
 
