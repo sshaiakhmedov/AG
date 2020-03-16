@@ -38,7 +38,7 @@ class TestAmazon {
 
         driver.navigate().to("https://www.amazon.com/");
 
-        WebElement searchField = driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]"));
+        WebElement searchField = driver.findElement(By.xpath("//*[@id='twotabsearchtextbox']"));
         assertTrue(searchField.isDisplayed());
 
 
@@ -75,16 +75,21 @@ class TestAmazon {
         System.out.println("Total pages: "+pageResultTotalCount.getText());
 
         //loop through all pages of searchResult
-        List<WebElement> pagesLine=driver.findElements(By.xpath("//ul[@class='a-pagination']//li"));
 
-        int i=2;
-        while (driver.findElement(By.xpath("//ul[@class='a-pagination']//li")).getText()!="Next"){
+        List<WebElement> pagesLine=driver.findElements(By.xpath("//ul[@class='a-pagination']/li[@class]"));
+        int i=1;
+        for (WebElement page:pagesLine){
             pagesLine.get(i).click();
-            Thread.sleep(2000);
-            i++;
-            Thread.sleep(2000);
-
+            pagesLine.get(i+1).click();
+                    i++;
         }
+
+//        int i=3;
+//        while (i<=7){
+//            pagesLine.get(i).click();
+//            Thread.sleep(3000);
+//            i++;
+//        }
 
         //ul[@class='a-pagination']//li[2]"
 
@@ -107,7 +112,6 @@ class TestAmazon {
 //        s.selectByVisibleText("Price: Low to High");
 
         //dropDownBox.selectByVisibleText("Price: Low to High");
-
         WebElement paginationSection=driver.findElement(By.className("a-pagination"));
         js.executeScript("arguments[0].scrollIntoView();", paginationSection);
         Thread.sleep(2000);
