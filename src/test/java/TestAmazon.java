@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
 
 import java.util.*;
@@ -10,7 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class TestAmazon {
-    WebDriver driver;
+    private WebDriver driver;
+    public Actions builder;
+
 
     @BeforeAll
     static void setupBeforeClass() throws Exception{
@@ -23,6 +26,7 @@ class TestAmazon {
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NONE);
         driver = new ChromeDriver(options);
+        builder=new Actions(driver);
 
 
         //https://www.guru99.com/implicit-explicit-waits-selenium.html
@@ -37,21 +41,30 @@ class TestAmazon {
         WebDriverWait wait= new WebDriverWait(driver,10);
 
         driver.navigate().to("https://www.amazon.com/");
+        Thread.sleep(2000);
+        System.out.println("Current url address: "+driver.getCurrentUrl());
+        //assertTrue(driver.getCurrentUrl().toString()=="https://www.amazon.com/");
+
+        js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+        WebElement languageSelector=driver.findElement(By.id("icp-touch-link-language"));
+        builder.moveToElement(languageSelector).perform();
+
+        Thread.sleep(2000);
+
 
         WebElement searchField = driver.findElement(By.xpath("//*[@id='twotabsearchtextbox']"));
         assertTrue(searchField.isDisplayed());
 
 
-        searchField.sendKeys("iphone");
+        searchField.sendKeys("table");
         searchField.submit();
 
 
-        WebElement searchWord=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='twotabsearchtextbox' and @value='iphone']")));
+        WebElement searchWord=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='twotabsearchtextbox' and @value='table']")));
         System.out.println("Search word: "+searchWord.getAttribute("value"));
 
-        //Thread.sleep(2000);
-        //String searchWord=driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\" and @value='nutella']")).getAttribute("value");
-        assertTrue(searchWord.getAttribute("value").contains("iphone"));
+        WebElement searchWord2=driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\" and @value='table']"));
+        assertTrue(searchWord2.getAttribute("value").contains("table"));
        List<WebElement> links= driver.findElements(By.tagName("a"));
        int linksCount=links.size();
         System.out.println("Number of links: "+ linksCount);
@@ -66,10 +79,11 @@ class TestAmazon {
         List<WebElement> filterOptions=driver.findElements(By.xpath("//li/a[starts-with(@id,'s-result-sort-select_')]"));
         System.out.println("Filter options: "+filterOptions.size());
 
-
         for (WebElement filter:filterOptions){
             System.out.println(filter.getText());
         }
+
+        //check that result number of items is really presented by items on total pages
 
         WebElement pageResultTotalCount=driver.findElement(By.xpath("//ul[@class='a-pagination']//li[last()-1]"));
         System.out.println("Total pages: "+pageResultTotalCount.getText());
@@ -77,27 +91,21 @@ class TestAmazon {
         //loop through all pages of searchResult
 
         List<WebElement> pagesLine=driver.findElements(By.xpath("//ul[@class='a-pagination']/li[@class]"));
-        int i=1;
+        int i=2;
         for (WebElement page:pagesLine){
+            js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+
             pagesLine.get(i).click();
-            pagesLine.get(i+1).click();
-                    i++;
+            i++;
+
+            Thread.sleep(2000);
+            List<WebElement> pagesLine2=driver.findElements(By.xpath("//ul[@class='a-pagination']/li[@class]"));
+            pagesLine=pagesLine2;
+
         }
-
-//        int i=3;
-//        while (i<=7){
-//            pagesLine.get(i).click();
-//            Thread.sleep(3000);
-//            i++;
-//        }
-
-        //ul[@class='a-pagination']//li[2]"
-
-
 
         WebElement priceHightToLow=driver.findElement(By.xpath("//a[contains(text(),'Price: High to Low')]"));
         priceHightToLow.click();
-
 
 
         //dropDownList: array
@@ -105,11 +113,6 @@ class TestAmazon {
 //        Select s=new Select(filterList);
 //        System.out.println(s.getOptions());
 
-
-        //DropDownList with Select class, #2
-//        WebElement dropDownBox= driver.findElement(By.xpath("//ul[@role='listbox']"));
-//        Select s=new Select(dropDownBox);
-//        s.selectByVisibleText("Price: Low to High");
 
         //dropDownBox.selectByVisibleText("Price: Low to High");
         WebElement paginationSection=driver.findElement(By.className("a-pagination"));
