@@ -50,10 +50,8 @@ class amazon2 {
             System.out.println("Menu link: "+ element.getText());
         }
 
-        Thread.sleep(1000);
 
-
-       //driver.quit();
+       driver.quit();
         driver.close();
     }
 
