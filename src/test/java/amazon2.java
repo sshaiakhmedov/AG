@@ -17,7 +17,7 @@ class amazon2 {
     @BeforeAll
     static void setupBeforeClass() throws Exception{
         //WebDriverManager.chromedriver().setup();
-       System.setProperty("webdriver.chrome.driver", "c:/drivers/chromedriver.exe");
+      // System.setProperty("webdriver.chrome.driver", "c:/drivers/chromedriver.exe");
     }
 
     @BeforeEach

@@ -1,17 +1,7 @@
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.interactions.*;
-import org.openqa.selenium.support.ui.*;
-
-import java.net.*;
-import java.util.*;
-import java.util.concurrent.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class LoginPage extends Base{
     private String URL = "http://the-internet.herokuapp.com/login";
@@ -40,7 +30,7 @@ class LoginPage extends Base{
 
     //services
     public static LoginPage open(WebDriver driver){
-        driver.get(URL);
+       // driver.get(URL);
         return PageFactory.initElements(driver, LoginPage.class);
     }
 
