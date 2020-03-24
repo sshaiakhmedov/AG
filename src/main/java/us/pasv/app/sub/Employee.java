@@ -16,7 +16,8 @@ public class Employee {
         mSalary=salary;
     }
 
-    //Getter
+    //Getter - чтобы потом можно было обращаться к закрытым Private свойствам класса из другого класса
+    //и другого места программы.
 
     public double getSalary(){
         return mSalary;
