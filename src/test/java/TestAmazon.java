@@ -27,6 +27,7 @@ class TestAmazon {
         options.setPageLoadStrategy(PageLoadStrategy.NONE);
         driver = new ChromeDriver(options);
         builder=new Actions(driver);
+        Thread.sleep(2000);
 
 
         //https://www.guru99.com/implicit-explicit-waits-selenium.html
