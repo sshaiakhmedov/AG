@@ -50,7 +50,6 @@ class TestAmazon {
         WebElement languageSelector=driver.findElement(By.id("icp-touch-link-language"));
         builder.moveToElement(languageSelector).perform();
 
-        Thread.sleep(2000);
 
 
         WebElement searchField = driver.findElement(By.xpath("//*[@id='twotabsearchtextbox']"));
