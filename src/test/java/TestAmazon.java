@@ -25,6 +25,8 @@ class TestAmazon {
     void setup(){
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NONE);
+
+
         driver = new ChromeDriver(options);
         builder=new Actions(driver);
         Thread.sleep(2000);
