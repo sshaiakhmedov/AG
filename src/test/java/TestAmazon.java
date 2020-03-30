@@ -72,8 +72,6 @@ class TestAmazon {
         System.out.println("Number of links: "+ linksCount);
 
 
-
-
         //DropDownList, #1
         WebElement sortBydropDown=driver.findElement(By.xpath("//span[@id='a-autoid-0']//*[@role='button']"));
         sortBydropDown.click();
