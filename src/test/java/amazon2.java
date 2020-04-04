@@ -36,7 +36,6 @@ class amazon2 {
     void searchField() throws InterruptedException {
         JavascriptExecutor js=(JavascriptExecutor)driver;
         WebDriverWait wait= new WebDriverWait(driver,10);
-
         driver.navigate().to("https://www.amazon.com/");
         Thread.sleep(2000);
         assertEquals(driver.getCurrentUrl(),"https://www.amazon.com/");
@@ -49,7 +48,6 @@ class amazon2 {
         for (WebElement element:menu){
             System.out.println("Menu link: "+ element.getText());
         }
-
 
        driver.quit();
         driver.close();
