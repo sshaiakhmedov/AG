@@ -44,7 +44,7 @@ class TestAmazon {
         WebDriverWait wait= new WebDriverWait(driver,10);
 
         driver.navigate().to("https://www.amazon.com/");
-        Thread.sleep(2000);
+      
         System.out.println("Current url address: "+driver.getCurrentUrl());
         //assertTrue(driver.getCurrentUrl().toString()=="https://www.amazon.com/");
 
@@ -52,15 +52,11 @@ class TestAmazon {
         WebElement languageSelector=driver.findElement(By.id("icp-touch-link-language"));
         builder.moveToElement(languageSelector).perform();
 
-
-
         WebElement searchField = driver.findElement(By.xpath("//*[@id='twotabsearchtextbox']"));
         assertTrue(searchField.isDisplayed());
 
-
         searchField.sendKeys("table");
         searchField.submit();
-
 
         WebElement searchWord=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='twotabsearchtextbox' and @value='table']")));
         System.out.println("Search word: "+searchWord.getAttribute("value"));
@@ -135,7 +131,6 @@ class TestAmazon {
         driver.quit();
         driver.close();
     }
-
 
 
 }
